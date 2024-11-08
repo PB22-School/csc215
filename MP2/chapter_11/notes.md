@@ -29,4 +29,15 @@ If you make a mistake, you might want to do:
 
 which moves ED down 3 **L**ines and **T**ypes one line.
 
-it's a good practice to type the line you're trying to change before changing it.
+it's good practice to type the line you're trying to change before changing it.
+
+The **S**ubstitute command is used to change lines:
+
+```
+SMIVctrlzMVIctrlz0LTcr
+```
+This command sequence replaces "MIV" with "MVI." CTRL+Z is used as a terminator (separates data.)
+
+Putting "0LT" after this command tells ED to go to the beginning of the **L**ine and **T**ype our changes. **0LT** is also a best practice, so use it at the end of commands.
+
+
