@@ -40,4 +40,24 @@ This command sequence replaces "MIV" with "MVI." CTRL+Z is used as a terminator 
 
 Putting "0LT" after this command tells ED to go to the beginning of the **L**ine and **T**ype our changes. **0LT** is also a best practice, so use it at the end of commands.
 
+**Bcr** sets buffer pointer to beginning.
+**E** exits ED.
 
+## Assembler
+
+```
+ASM TESTcr
+```
+Assembles our test program.
+
+**Define symbols at the beginning of source programs!**
+
+```
+ASM TEST.AZZcr
+```
+There's a few options we can use with ASM.
+The **A** tells us to read from drive **A**. We omit the creation of a **.HEX** file using the first **Z**, and omit the creation of a **.PRN** file with the second **Z**.
+
+All the options can be either a valid disk drive or **Z** to indicate none.
+
+For the third option, **X** can be used to indicate that you want the **.PRN** file displayed on the console, but not written to the disk.
