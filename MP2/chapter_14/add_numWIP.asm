@@ -18,11 +18,27 @@ START:
 
 START1: 
         CALL    SPMSG
-        DB      'FIRST NUMBER: ',CR,LF,0
+        DB      'FIRST NUMBER:', CR, LF, 0
         CALL    CIMSG
+
+        CALL    BUFBIN
+        MOV     C, B
+
         CALL    CCRLF
-        LXI     H, INBUF
+        CALL    SPMSG
+        DB      'SECOND NUMBER:', CR, LF, 0
+        CALL    CIMSG
+
+        CALL    BUFBIN
+        MOV     A, C
+
+        CALL    BUFASCII
+
+        CALL    CCRLF
+        LXI     H, INBUF+2
         CALL    COMSG
+        CALL    CCRLF
+
         JMP     RBOOT
 
 ; CONSOLE CHARACTER TO REGISTER A MASKED WITH 7 BITS
@@ -55,7 +71,7 @@ CCRLF:
         MVI     A, CR
         CALL    CO
         MVI     A, LF
-        JMP    CO
+        JMP     CO
 
 ; MESSAGE POINTED TO BY HL
 COMSG:
@@ -141,6 +157,10 @@ DBGPR:
         CALL    TOASCII
         CALL    CO
         CALL    CCRLF
+        MOV     A, B
+        CALL    CO
+        CALL    CCRLF
+        CALL    CCRLF
 
         MVI     A, 'C'
         CALL    CO
@@ -148,6 +168,10 @@ DBGPR:
         MOV     A, C
         CALL    TOASCII
         CALL    CO
+        CALL    CCRLF
+        MOV     A, C
+        CALL    CO
+        CALL    CCRLF
         CALL    CCRLF
 
         MVI     A, 'D'
@@ -157,6 +181,10 @@ DBGPR:
         CALL    TOASCII
         CALL    CO
         CALL    CCRLF
+        MOV     A, D
+        CALL    CO
+        CALL    CCRLF
+        CALL    CCRLF
 
         MVI     A, 'E'
         CALL    CO
@@ -164,6 +192,34 @@ DBGPR:
         MOV     A, E
         CALL    TOASCII
         CALL    CO
+        CALL    CCRLF
+        MOV     A, E
+        CALL    CO
+        CALL    CCRLF
+        CALL    CCRLF
+
+        MVI     A, 'H'
+        CALL    CO
+        CALL    CCRLF
+        MOV     A, H
+        CALL    TOASCII
+        CALL    CO
+        CALL    CCRLF
+        MOV     A, H
+        CALL    CO
+        CALL    CCRLF
+        CALL    CCRLF
+
+        MVI     A, 'L'
+        CALL    CO
+        CALL    CCRLF
+        MOV     A, L
+        CALL    TOASCII
+        CALL    CO
+        CALL    CCRLF
+        MOV     A, L
+        CALL    CO
+        CALL    CCRLF
         CALL    CCRLF
 
         POP     A
@@ -202,6 +258,116 @@ MULTIPLY:
         MOV     A, D
         POP     D
         POP     B
+        RET
+
+; A = INT(A / B)
+; B = A % B
+DIVIDE:
+
+        PUSH    D
+        MVI     C, 0    ; COUNTER
+        MVI     D, 0    ; SUM
+        MOV     E, A
+
+        ADDLOOP:
+
+        INR     C
+        MOV     A, D
+        ADD     B
+        MOV     D, A
+
+        CMP     E
+
+        JNC     DIVNE   ; (D+B) > E?
+        JZ      DIVE    ; (D+B) = E?
+        JMP     ADDLOOP
+
+        DIVNE:
+
+        DCR     C
+
+        DIVE:
+
+        MOV     A, D
+        SUB     B
+        MOV     B, A    ; B = D - B
+        MOV     A, E
+        SUB     B
+        MOV     B, A    ; B = E - (D - B)
+        MOV     A, C    ; A = C
+        POP     D       
+        RET
+
+
+
+; INBUF (ASCII) -> B (BINARY)
+BUFBIN:
+
+        LXI     H, INBUF+1
+        MVI     B, 0
+
+        ; MAYBE CR + LF IS IN HERE???
+        ; MAYBE DOESN'T MATTER, MAYBE HAVE TO MAKE OTHER CHARS = 0
+
+        BUFLOOP:
+
+        INX     H
+        MOV     A, M
+        ORA     A
+        RZ
+        MVI     A, 10
+        CALL    MULTIPLY
+        MOV     B, A
+        MOV     A, M
+        CALL    TOBIN
+        ADD     B
+        MOV     B, A
+
+        JMP     BUFLOOP
+
+; A (BINARY) -> INBUF (ASCII)
+BUFASCII:
+
+        LXI     H, INBUF+1
+        MVI     C, 0
+        PUSH    A
+
+        LENGTHLOOP:
+        MVI     B, 1O
+        CALL    DIVIDE
+        INR     C
+        ORA     A
+        JNZ     LENGTHLOOP
+
+        POP     A
+
+        INX     H
+        MVI     M, 0
+
+        LXI     H, INBUF+2
+        MVI     B, 0
+        DAD     B
+
+        BASCIILOOP:
+
+        MVI     B, 10
+        CALL    DIVIDE
+        PUSH    A
+
+        MOV     A, B
+        CALL    TOASCII
+
+        DCX     H
+        MOV     M, A
+
+        POP     A
+
+        ORA     A
+
+        JNZ     BASCIILOOP
+
+        ;INX     H
+        ;MVI     M, 10
         RET
 
 DS      64
