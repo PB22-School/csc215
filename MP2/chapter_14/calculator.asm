@@ -21,124 +21,123 @@ START1:
         CALL    SPMSG
         DB      'INPUT FIRST NUMBER:', CR, LF, 0
         CALL    CIMSG
+        CALL    CCRLF
 
-        CALL    BUFFREV
+        CALL    BUFBIN
+        MOV     C, B    ; FIRST NUMBER -> C
 
-        ; CALL    BUFBIN
-        ; MOV     C, B    ; FIRST NUMBER -> C
+        CALL    CCRLF
+        CALL    SPMSG
+        DB      'INPUT SECOND NUMBER:', CR, LF, 0
+        CALL    CIMSG
+        CALL    CCRLF
 
-        ; CALL    CCRLF
-        ; CALL    SPMSG
-        ; DB      'INPUT SECOND NUMBER:', CR, LF, 0
-        ; CALL    CIMSG
-        ; CALL    CCRLF
+        CALL    BUFBIN  ; SECOND NUMBER -> D
+        MOV     D, B
 
-        ; CALL    BUFBIN  ; SECOND NUMBER -> D
-        ; MOV     D, B
+        ;JMP     RBOOT
 
-        LXI     H, INBUF+2
-        CALL    COMSG
+        CALL    CCRLF
+        CALL    SPMSG
+        DB      'TYPE YOUR CHOICE:', CR, LF, CR, LF, '1) ADD', CR, LF, '2) SUBTRACT', CR, LF, '3) MULTIPLY', CR, LF, '4) DIVIDE', CR, LF, CR, LF, 'CHOICE: ',0
+        CALL    CIMSG
+
+        CALL    BUFBIN
+        CALL    CCRLF
+        CALL    CCRLF
+
+        MOV     A, B
+
+        CPI     1
+        JZ      STARTADD
+
+        CPI     2
+        JZ      STARTSUB
+
+        CPI     3
+        JZ      STARTMULT
+
+        CPI     4
+        JZ      STARTDIV
 
         JMP     RBOOT
 
-;         CALL    CCRLF
-;         CALL    SPMSG
-;         DB      'TYPE YOUR CHOICE:', CR, LF, CR, LF, '1) ADD', CR, LF, '2) SUBTRACT', CR, LF, '3) MULTIPLY', CR, LF, '4) DIVIDE', CR, LF, CR, LF, 'Choice: ',0
-;         CALL    CIMSG
+STARTADD:
 
-;         CALL    BUFBIN
-;         CALL    CCRLF
-;         CALL    CCRLF
+        MOV     A, C
+        ADD     D
 
-;         MOV     A, B
+        PUSH    A
 
-;         CPI     1
-;         JZ      STARTADD
+        CALL    SPMSG
+        DB      'RESULT OF ADDITION: ', 0
 
-;         CPI     2
-;         JZ      STARTSUB
+        JMP     STARTDONE
 
-;         CPI     3
-;         JZ      STARTMULT
+STARTSUB:
 
-;         CPI     4
-;         JZ      STARTDIV
+        MOV     A, C
+        SUB     D
 
-;         JMP     RBOOT
+        PUSH    A
 
-; STARTADD:
+        CALL    SPMSG
+        DB      'RESULT OF SUBTRACTION: ', 0
 
-;         MOV     A, C
-;         ADD     D
+        JMP     STARTDONE
 
-;         PUSH    A
+STARTMULT:
 
-;         CALL    SPMSG
-;         DB      'RESULT OF ADDITION: ', 0
+        MOV     A, C
+        MOV     B, D
 
-;         JMP     STARTDONE
+        CALL    MULTIPLY
 
-; STARTSUB:
+        PUSH    A
 
-;         MOV     A, C
-;         SUB     D
+        CALL    SPMSG
+        DB      'RESULT OF MULTIPLICATION: ', 0
 
-;         PUSH    A
+        JMP     STARTDONE
 
-;         CALL    SPMSG
-;         DB      'RESULT OF SUBTRACTION: ', 0
+STARTDIV:
 
-;         JMP     STARTDONE
+        MOV     A, C
+        MOV     B, D
 
-; STARTMULT:
+        CALL    DIVIDE
 
-;         MOV     A, C
-;         MOV     B, D
+        MOV     C, A    ; RESULT  -> C
+        MOV     D, B    ; MODULUS -> D
 
-;         CALL    MULTIPLY
+        CALL    SPMSG
+        DB      'RESULT OF DIVISION: ', 0
 
-;         PUSH    A
+        MOV     A, C
 
-;         CALL    SPMSG
-;         DB      'RESULT OF MULTIPLICATION: ', 0
+        CALL    BINBUFASCII
 
-;         JMP     STARTDONE
+        LXI     H, INBUF+2
+        CALL    COMSG
+        CALL    CCRLF
 
-; STARTDIV:
+        CALL    SPMSG
+        DB      'WITH REMAINDER: ', 0
 
-;         MOV     A, C
-;         MOV     B, D
+        MOV     A, D
+        PUSH    A
 
-;         CALL    DIVIDE
+STARTDONE:
 
-;         PUSH    B
+        POP     A
 
-;         CALL    SPMSG
-;         DB      'RESULT OF DIVISION: ', 0
+        CALL    BINBUFASCII
 
-;         MOV     B, A
+        LXI     H, INBUF+2
+        CALL    COMSG
+        CALL    CCRLF
 
-;         POP     A
-
-;         CALL    BUFASCII
-
-;         LXI     H, INBUF+2
-;         CALL    COMSG
-;         CALL    CCRLF
-
-;         PUSH    B
-
-; STARTDONE:
-
-;         POP     A
-
-;         CALL    BUFASCII
-
-;         LXI     H, INBUF+2
-;         CALL    COMSG
-;         CALL    CCRLF
-
-;         JMP     RBOOT
+        JMP     RBOOT
 
 ; CONSOLE CHARACTER TO REGISTER A MASKED WITH 7 BITS
 CI:
@@ -419,28 +418,43 @@ BUFFREV:
         MOV     C, M
         MVI     B, 0
 
+        INR     C
+
         REVLOOP:
 
         INX     H
-        MOV     E, M
         PUSH    H
 
         DCR     C
+        DCR     C
+
+        ; ; DEBUG
+        ; MOV     A, C
+        ; CALL    TOASCII
+        ; CALL    CO
+        ; MVI     A, ':'
+        ; CALL    CO
+        ; MOV     A, C
+        ; ANI     7FH
+        ; CALL    CO
+        ; CALL    CCRLF
+        ; ; DEBUG
 
         MOV     A, C
         CPI     0
+        ;DCR     C
 
-        ; JZ      REVDONE
-        ; JC      REVDONE
+        JZ      REVDONE
+        JM      REVDONE
+        MOV     D, M
         DAD     B
         MOV     A, M
-        MOV     M, E
+        MOV     M, D
+
         POP     H
-
         MOV     M, A
-        DCR     C
 
-        JNZ     REVLOOP
+        JMP     REVLOOP
 
         REVDONE:
 
@@ -473,7 +487,7 @@ BUFBIN:
         JMP     BUFLOOP
 
 ; A (BINARY) -> INBUF (ASCII)
-BUFASCII:
+BINBUFASCII:
 
         PUSH    A
         PUSH    B
