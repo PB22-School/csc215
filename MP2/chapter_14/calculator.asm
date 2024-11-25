@@ -468,7 +468,7 @@ BUFFREV:
 BUFBIN:
 
         LXI     H, INBUF+1
-        MVI     B, 0
+        MVI     B, 0            ; RUNNING SUM
 
         BUFLOOP:
 
