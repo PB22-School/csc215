@@ -11,6 +11,8 @@
 #define AAA 7
 #define IDK 8
 
+char* bigScopeString;
+
 struct bigInt {
     int isNegative;
     int length;
@@ -149,24 +151,85 @@ void bisub(bint1, bint2)
 struct bigInt* bint1;
 struct bigInt* bint2;
 {
-    int negative;
-    if (!(bint1->isNegative ^ bint2->isNegative)) {
-        invert(bint2);
-        biadd(bint1, bint2);
+    int i, carry, borrow, negative, len;
+
+    if (bint1->isNegative ^ bint2->isNegative) {
+        /* hard to subtract, we'd rather have it be two of the same type */
+
+        /* if the second one is the negative one, we can easily invert it's sign then add. */
+
+        if (bint2->isNegative) {
+
+            /* a - (-b) = a + b*/
+
+            invert(bint2);
+            biadd(bint1, bint2);
+            return;
+        }
+        else {
+            /* (-a) - b = -(a + b) */
+
+            invert(bint1);
+            invert(bint2);
+            biadd(bint1, bint2);
+            invert(bint1);
+            return;
+        }
     }
 
-    if (bint1->isNegative) {
-        /* means both are negative */
-        negative = TRUE;
-        invert(bint1);
-        invert(bint2);
+    else {
+        
+        /* pos(a) - pos(b) is easy (a - b) */
+        /* neg(a) - neg(a) = neg(a) + b = -(a - b) */
+
+        if (bint1->isNegative) {
+            /* -(a - b) */
+            negative = TRUE;
+            invert(bint1);
+            invert(bint2);
+        }
+        else {
+            /* a - b */
+            negative = FALSE;
+        }
     }
 
-    biadd(bint1, bint2);
+    carry = FALSE;
+    i = 0;
+    
+    len = max(bint1->length, bint2->length);
 
-    if (negative) {
-        invert(bint1);
-    }
+    bigScopeString = alloc(len);
+
+    do {
+        if (i < bint1->length) {
+            borrow = bint1->bigNum[i] - carry;
+        }
+        if (i < bint2->length) {
+            borrow -= bint2->bigNum[i];
+            if (borrow < 0 && !carry) {
+                borrow = 10 + borrow;
+                carry = TRUE;
+            }
+            else if (borrow >= 0) {
+                carry = FALSE;
+            }
+            else if (carry) {
+                bigScopeString[i - 1] = 10 - bigScopeString[i - 1];
+                negative = !negative;
+                carry = FALSE;
+                borrow = ~borrow + 1;
+            }
+        }
+
+        bigScopeString[i] = borrow;
+        i++;
+    } while (i < len);
+
+    bifree(bint1);
+    bint1->bigNum = bigScopeString;
+
+    bint1->isNegative = negative;
 }
 
 /* returns bint1 += bint2 */
@@ -177,17 +240,41 @@ struct bigInt* bint2;
     int i, carry, len, negative;
     char* str;
 
-    if (!(bint1->isNegative ^ bint2->isNegative)) {
-        /* I didn't want to actually code subtraction sooooo */
-        invert(bint2);
-        bisub(bint1, bint2);
-    }
+    if (bint1->isNegative ^ bint2->isNegative) {
+        /* this is hard, we want both to be the same sign. */
 
-    if (bint1->isNegative) {
-        /* means both are negative */
-        negative = TRUE;
-        invert(bint1);
-        invert(bint2);
+        /* -a + b = y  */
+        /*  a - b = -y */
+        if (bint1->isNegative) {
+            invert(bint1);
+            invert(bint2);
+
+            printf("positive: %d, negative: %d\n", bint1->isNegative, bint2->isNegative);
+
+            bisub(bint1, bint2);
+            invert(bint1);
+            return;
+        }
+        else {
+            /* a + -b = a - b*/
+            /* is a simple subtract */
+            invert(bint2);
+            bisub(bint1, bint2);
+            return;
+        }
+    }
+    else {
+        /* a + b or -a + -b */
+        if (bint1->isNegative) {
+            /* -a + -b = -(a + b) */
+            negative = TRUE;
+            invert(bint1);
+            invert(bint2);
+        }
+        else {
+            /* a + b */
+            negative = FALSE;
+        }
     }
 
     carry = 0;
@@ -226,11 +313,9 @@ struct bigInt* bint2;
         bint1->bigNum[i] = str[i];
     }
 
-    free(str);
+    bint1->isNegative = negative;
 
-    if (negative) {
-        invert(bint1);
-    }
+    free(str);
 }
 
 
