@@ -262,19 +262,23 @@ bigint bigint::operator*(bigint b2) {
 
     bool isNegative = negative ^ b2.negative;
     string ndigits = "";
-    int carry = 0;
     int sum = 0;
 
-    int maxLen = max(digits.length(), b2.digits.length());
-
-    for (int i = 0; i < maxLen; i++) {
-
-        sum = 0;
-
-        if (i < digits.length()) {
-            sum = 
+    for (int i = 0; i < digits.length(); i++) {
+        for (int j = 0; j < b2.digits.length(); j++) {
+            sum += digits[i] * b2.digits[j] * pow(10, i + j);
         }
     }
+
+    if (isNegative) {
+        sum *= -1;
+    }
+
+    return bigint(sum);
+
+}
+
+bigint bigint::operator*(string str) {
 
 }
 
