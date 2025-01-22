@@ -74,7 +74,7 @@ int main() {
         opcode = toOpcode(opCodeIn);
 
         if (opcode == BAD_OPCODE) {
-            cout << "BAD OPCODE!! " << opCodeIn << " IS NOT! A VALID OPCODE." << endl;
+            cout << "BAD OPCODE!! '" << opCodeIn << "' IS NOT! A VALID OPCODE." << endl;
             continue;
         }
         else if (opcode == EXIT) {
@@ -86,9 +86,11 @@ int main() {
 
         other = bigint(numIn);
 
+        cout << endl;
+
         accumulator.inLinePrint();
 
-        cout << " " << opCodeIn << " " << numIn << " ";
+        cout << " " << opCodeIn << " " << numIn << " = ";
 
         switch (opcode) {
             case ADD:
@@ -117,11 +119,20 @@ int main() {
         }
 
         if (opcode > BOOLEAN_OPERATIONS) {
-            cout << result << endl;
+            if (result) {
+                cout << "TRUE";
+            }
+            else {
+                cout << "FALSE";
+            }
         }
         else {
-            cout << accumulator << endl;
+            accumulator.inLinePrint();
         }
 
+        cout << "!!\n\n";
+
     }
+
+    cout << endl << "EXITING." << endl;
 }
