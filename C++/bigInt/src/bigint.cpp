@@ -2,6 +2,18 @@
 #include <iostream>
 using namespace std;
 
+string removePadding(string str) {
+    for (int i = str.length() - 1; i >= 0; i--) {
+        if (i != 0) {
+            return str;
+        }
+
+        // i == 0
+
+        str.resize(str.length() - 1);
+    }
+}
+
 bigint::bigint(bool negative, string digits) {
     this->negative = negative;
     this->digits = digits;
@@ -175,6 +187,8 @@ bigint bigint::operator-(bigint b2) {
     bool takeOneFlag = false;
     int columnSum = 0;
 
+    string ndigits = "";
+
     for (int i = 0; i < digits.length(); i++) {
 
         columnSum = -takeOneFlag;
@@ -191,7 +205,14 @@ bigint bigint::operator-(bigint b2) {
             }
             columnSum -= b2.digits[i];
         }
+
+        ndigits += columnSum;
+
     }
+
+    ndigits
+
+    return bigint(false, ndigits);
 
 }
 
