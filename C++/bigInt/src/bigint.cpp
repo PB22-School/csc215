@@ -8,14 +8,19 @@ bigint::bigint(string str) {
         return;
     }
 
-    printf("inputted: %s", str.c_str());
+    cout << str << endl;
+    cout << str.length() << endl;
 
     negative = str[0] == '-';
 
     for (int i = negative; i < str.length(); i++) {
-        digits[str.length() - (i + !negative)] = str[i] - '0';
-        print();
+        digits[str.length() - (i + !negative)] = str[i];
+        cout << i << " : " << str.length() - (i + !negative) << endl;
+        cout << str[i] << " to pos " << str.length() - (i + !negative) << endl;
     }
+
+    cout << endl << str << endl;
+    cout << digits << endl;
 
 }
 
@@ -26,7 +31,7 @@ void bigint::print() {
     }
 
     for (int i = digits.length() - negative; i >= 0; i--) {
-        cout << digits[i] + '0';
+        cout << digits[i];
     }
 
     cout << endl;
