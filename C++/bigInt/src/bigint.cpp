@@ -332,3 +332,27 @@ bool bigint::operator>=(int x) {
 bool bigint::operator<(bigint b2) {
     return !(*this >= b2);
 }
+
+bool bigint::operator<(string str) {
+    return !(*this >= bigint(str));
+}
+
+bool bigint::operator<(int x) {
+    return !(*this >= bigint(x));
+}
+
+bool bigint::operator<=(bigint b2) {
+    return !(*this > b2);
+}
+
+bool bigint::operator<=(string str) {
+    return !(*this > bigint(str));
+}
+
+bool bigint::operator<=(int x) {
+    return !(*this > bigint(x));
+}
+
+bigint::operator bool() const {
+    return digits == "0";
+}
