@@ -57,31 +57,38 @@ int toOpcode(string str) {
 
 int main() {
     bigint other;
-    string in;
+    string opCodeIn;
+    string numIn;
     int opcode;
+    bool result = false;
 
     cout << "Enter Number: ";
-    cin >> in;
+    cin >> numIn;
 
-    bigint accumulator(in);
+    bigint accumulator(numIn);
     
     while (true) {
         cout << "Type Operation: ";
-        cin >> in;
+        cin >> opCodeIn;
 
-        opcode = toOpcode(in);
+        opcode = toOpcode(opCodeIn);
 
         if (opcode == BAD_OPCODE) {
-            cout << "BAD OPCODE!! " << in << " IS NOT! A VALID OPCODE." << endl;
+            cout << "BAD OPCODE!! " << opCodeIn << " IS NOT! A VALID OPCODE." << endl;
             continue;
         }
-
+        else if (opcode == EXIT) {
+            break;
+        }
+ 
         cout << "Type New Number: ";
-        cin >> in;
+        cin >> numIn;
 
-        other = bigint(in);
+        other = bigint(numIn);
 
         accumulator.inLinePrint();
+
+        cout << " " << opCodeIn << " " << numIn << " ";
 
         switch (opcode) {
             case ADD:
@@ -90,7 +97,30 @@ int main() {
             case SUBTRACT:
                 accumulator -= other;
                 break;
-            
+            case EQUAL:
+                result = accumulator == other;
+                break;
+            case NOT_EQUAL:
+                result = accumulator != other;
+                break;
+            case GREATER_THAN:
+                result = accumulator > other;
+                break;
+            case GREATER_THAN_OR_EQUAL:
+                result = accumulator >= other;
+                break;
+            case LESS_THAN:
+                result = accumulator < other;
+                break;
+            case LESS_THAN_OR_EQUAL:
+                result = accumulator <= other;
+        }
+
+        if (opcode > BOOLEAN_OPERATIONS) {
+            cout << result << endl;
+        }
+        else {
+            cout << accumulator << endl;
         }
 
     }
