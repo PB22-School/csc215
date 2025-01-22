@@ -53,6 +53,11 @@ bigint::bigint(int x) {
     // }
 }
 
+bigint::bigint() {
+    digits = "0";
+    negative = false;
+}
+
 void bigint::print() {
 
     if (negative) {

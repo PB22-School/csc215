@@ -19,14 +19,32 @@ enum op_codes {
 
 };
 
+int toOpcode(string str) {
+
+}
+
 
 int main() {
     bigint mem;
-    char in;
+    string in;
     int opcode;
+
+    cout << "Enter Number: ";
+    cin >> in;
+
+    bigint accumulator(in);
     
     while (true) {
+        cout << "Type Operation: ";
         cin >> in;
+
+        opcode = toOpcode(in);
+
+        switch (opcode) {
+            case ADD:
+
+                break;
+        }
 
     }
 }

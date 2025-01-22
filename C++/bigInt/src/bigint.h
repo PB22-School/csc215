@@ -18,6 +18,7 @@ class bigint {
 
     bigint(string str);
     bigint(int x);
+    bigint();
 
     void print();
 
