@@ -1,6 +1,8 @@
 #include "bigint.h"
 #include <iostream>
+
 using namespace std;
+template <typename T>
 
 string removePadding(string str) {
     for (int i = str.length() - 1; i >= 0; i--) {
@@ -65,7 +67,10 @@ void bigint::print() {
     cout << endl;
 }
 
-bigint bigint::operator+(bigint b2) {
+T bigint::operator+(T b2) {
+
+    if 
+
 
     /*
     
