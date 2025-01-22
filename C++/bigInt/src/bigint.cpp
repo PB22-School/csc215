@@ -12,7 +12,6 @@ bigint::bigint(string str) {
 
     for (int i = negative; i < str.length(); i++) {
         digits += str[i] - '0';
-        cout << int(str[i] - '0') << endl;
     }
 
 }
@@ -23,15 +22,15 @@ bigint::bigint(int x) {
     int i = 0;
 
     while (x) {
-        digits[i] = x % 10;
+        digits += x % 10;
         x /= 10;
     }
 
-    // for (int i = 0; i < digits.length(); i++) {
-    //     char dig = digits[i];
-    //     digits[i] = digits[digits.length() - i];
-    //     digits[digits.length() - i] = dig;
-    // }
+    for (int i = 0; i < digits.length() / 2; i++) {
+        char dig = digits[i];
+        digits[i] = digits[digits.length() - (i + 1)];
+        digits[digits.length() - (i + 1)] = dig;
+    }
 }
 
 void bigint::print() {
@@ -45,4 +44,16 @@ void bigint::print() {
     }
 
     cout << endl;
+}
+
+bigint bigint::operator+(bigint b2) {
+    
+}
+
+bigint bigint::operator+(string str) {
+
+}
+
+bigint bigint::operator+(int x) {
+
 }
