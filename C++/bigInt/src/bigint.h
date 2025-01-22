@@ -6,8 +6,6 @@
 #define INIT_DIGIT_LENGTH 2
 using namespace std;
 
-template <typename T>
-
 class bigint {
 
     private:
@@ -26,29 +24,54 @@ class bigint {
     // ADDITION OPERATORS:
 
     bigint operator+(bigint b2);
-    bigint operator+(T t);
+    bigint operator+(str str);
+    bigint operator+(int x);
 
     void operator+=(bigint b2);
-    void operator+=(T t);
+    void operator+=(string str);
+    void operator+=(int x);
 
     void operator++();
 
     // SUBTRACTION OPERATORS:
     
     bigint operator-(bigint b2);
-    bigint operator-(T t);
+    bigint operator-(string str);
+    bigint operator-(int x);
 
     void operator-=(bigint b2);
-    void operator-=(T t);
+    void operator-=(string str);
+    void operator-=(int x);
 
     void operator--();
 
     // BOOLEAN LOGIC OPERATORS:
 
+    bool operator==(bigint b2);
+    bool operator==(string str);
+    bool operator==(int x);
+
+    bool operator!=(bigint b2);
+    bool operator!=(string str);
+    bool operator!=(int x);
+
     bool operator>(bigint b2);
+    bool operator>(string str);
+    bool operator>(int x);
+
     bool operator<(bigint b2);
+    bool operator<(string str);
+    bool operator<(int x);
+
     bool operator>=(bigint b2);
+    bool operator>=(string str);
+    bool operator>=(int x);
+
     bool operator<=(bigint b2);
+    bool operator<=(string str);
+    bool operator<=(int x);
+
+    
 
 };
 

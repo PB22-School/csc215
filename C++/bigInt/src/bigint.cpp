@@ -2,7 +2,6 @@
 #include <iostream>
 
 using namespace std;
-template <typename T>
 
 string removePadding(string str) {
     for (int i = str.length() - 1; i >= 0; i--) {
@@ -67,7 +66,7 @@ void bigint::print() {
     cout << endl;
 }
 
-T bigint::operator+(T b2) {
+bigint bigint::operator+(bigint b2) {
 
     if 
 
@@ -251,3 +250,22 @@ void bigint::operator--() {
     *this = *this - 1;
 }
 
+bool bigint::operator==(bigint b2) {
+    return digits == b2.digits;
+}
+
+bool bigint::operator==(string str) {
+    return digits == bigint(str).digits;
+}
+
+bool bigint::operator==(int x) {
+    return digits == bigint(x).digits;
+}
+
+bool bigint::operator==(bigint b2);
+    bool operator==(string str);
+    bool operator==(int x);
+
+bool bigint::operator>(bigint b2) {
+    if (b2.)
+}
