@@ -1,4 +1,5 @@
 #include "bigint.h"
+#include <iostream>
 using namespace std;
 
 bigint::bigint(string str) {
@@ -7,10 +8,13 @@ bigint::bigint(string str) {
         return;
     }
 
+    cout << str << endl;
+
     negative = str[0] == '-';
 
-    for (int i = bint.negative; i < str.length(); i++) {
+    for (int i = negative; i < str.length(); i++) {
         digits[str.length() - (i + !negative)] = str[i] - '0';
+        print();
     }
 
     digitLength = str.length() - negative;
@@ -20,12 +24,12 @@ bigint::bigint(string str) {
 void bigint::print() {
 
     if (negative) {
-        putchar('-');
+        cout << '-';
     }
 
-    for (int i = digitLength - 1; i >= 0; i--) {
-        printf("%d", digits[i]);
+    for (int i = digitLength - negative; i >= 0; i--) {
+        cout << digits[i] + '0';
     }
 
-    putchar('\n');
+    cout << endl;
 }
