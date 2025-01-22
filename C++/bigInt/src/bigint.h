@@ -58,14 +58,15 @@ class bigint {
     bool operator>(bigint b2);
     bool operator>(string str);
     bool operator>(int x);
+    
+    bool operator>=(bigint b2);
+    bool operator>=(string str);
+    bool operator>=(int x);
 
     bool operator<(bigint b2);
     bool operator<(string str);
     bool operator<(int x);
 
-    bool operator>=(bigint b2);
-    bool operator>=(string str);
-    bool operator>=(int x);
 
     bool operator<=(bigint b2);
     bool operator<=(string str);

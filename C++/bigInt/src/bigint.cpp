@@ -305,4 +305,30 @@ bool bigint::operator>(bigint b2) {
         }
     }
 
+    return false;
+
+}
+
+bool bigint::operator>(string str) {
+    return *this > bigint(str);
+}
+
+bool bigint::operator>(int x) {
+    return *this > bigint(x);
+}
+
+bool bigint::operator>=(bigint b2) {
+    return (*this == b2) || (*this > b2);
+}
+
+bool bigint::operator>=(string str) {
+    return (*this == bigint(str)) || (*this > bigint(str));
+}
+
+bool bigint::operator>=(int x) {
+    return (*this == bigint(x)) || (*this > bigint(x));
+}
+
+bool bigint::operator<(bigint b2) {
+    return !(*this >= b2);
 }
