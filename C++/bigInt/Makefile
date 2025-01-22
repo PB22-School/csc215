@@ -1,2 +1,2 @@
 fun():
-	g++ src/main.cpp src/bigint.cpp -o src/main; ./src/main
+	g++ src/calculator.cpp src/bigint.cpp -o src/calculator; ./src/calculator

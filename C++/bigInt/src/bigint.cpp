@@ -5,13 +5,13 @@ using namespace std;
 
 string removePadding(string str) {
     for (int i = str.length() - 1; i >= 0; i--) {
-        if (i != 0) {
+        if (str[i] != 0) {
             return str;
         }
 
         // i == 0
 
-        str.resize(str.length() - 1);
+        str.pop_back();
     }
 
     return str;
@@ -201,19 +201,18 @@ bigint bigint::operator-(bigint b2) {
         columnSum = -takeOneFlag;
         takeOneFlag = false;
 
+
         if (i < digits.length()) {
             columnSum += digits[i];
         }
 
         if (i < b2.digits.length()) {
-
             columnSum -= b2.digits[i];
+        }
 
-            if (b2.digits[i] > columnSum) {
-                takeOneFlag = true;
-                columnSum += 10;
-            }
-            
+        if (columnSum < 0) {
+            takeOneFlag = true;
+            columnSum += 10;
         }
 
         ndigits += columnSum;
