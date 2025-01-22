@@ -6,4 +6,7 @@ int main() {
 
     bint.print();
     bint2.print();
+
+    bint += bint2;
+    bint.print();
 }

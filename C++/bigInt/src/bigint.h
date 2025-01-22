@@ -25,9 +25,9 @@ class bigint {
     bigint operator+(string str);
     bigint operator+(int x);
 
-    bigint operator+=(bigint b2);
-    bigint operator+=(string str);
-    bigint operator+=(int x);
+    void operator+=(bigint b2);
+    void operator+=(string str);
+    void operator+=(int x);
 
     bigint operator++();
     
@@ -35,9 +35,9 @@ class bigint {
     bigint operator-(string str);
     bigint operator-(int x);
 
-    bigint operator-=(bigint b2);
-    bigint operator-=(string str);
-    bigint operator-=(int x);
+    void operator-=(bigint b2);
+    void operator-=(string str);
+    void operator-=(int x);
 
     bigint operator--();
 
