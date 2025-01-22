@@ -68,7 +68,24 @@ bigint bigint::operator+(bigint b2) {
         if (b2.negative) {
             // -a + -b = -(a + b)
             newIsNegative = true;
-            
+        }
+        else {
+            // -a + b = b - a
+            b2.negative = false;
+            negative = false;
+            return b2 - *this;
+        }
+    }
+    else {
+        if (b2.negative) {
+            // a + -b = a - b
+            b2.negative = false;
+            negative = false;
+            return *this - b2;
+        }
+        else {
+            // a + b
+            // just do regular addition!
         }
     }
 
@@ -120,6 +137,16 @@ void bigint::operator+=(int x) {
 }
 
 bigint bigint::operator-(bigint b2) {
+
+    /*
+    
+    a  - b  = a - b
+    a  - -b = a + b
+    -a - b  = -(a + b)
+    -a - -b = -a + b = b - a
+    
+    */
+
 
 }
 
