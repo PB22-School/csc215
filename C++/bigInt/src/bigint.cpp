@@ -176,11 +176,19 @@ bigint bigint::operator-(bigint b2) {
     int columnSum = 0;
 
     for (int i = 0; i < digits.length(); i++) {
+
+        columnSum = -takeOneFlag;
+        takeOneFlag = false;
+
         if (i < digits.length()) {
             columnSum += digits[i];
         }
 
         if (i < b2.digits.length()) {
+            if (b2.digits[i] > columnSum) {
+                takeOneFlag = true;
+                columnSum += 10;
+            }
             columnSum -= b2.digits[i];
         }
     }
