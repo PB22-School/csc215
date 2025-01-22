@@ -279,7 +279,23 @@ bigint bigint::operator*(bigint b2) {
 }
 
 bigint bigint::operator*(string str) {
+    return *this * bigint(str);
+}
 
+bigint bigint::operator*(int x) {
+    return *this * bigint(x);
+}
+
+void bigint::operator*=(bigint b2) {
+    *this = *this * b2;
+}
+
+void bigint::operator*=(string str) {
+    *this = *this * bigint(str);
+}
+
+void bigint::operator*=(int x) {
+    *this = *this * bigint(x);
 }
 
 bool bigint::operator==(bigint b2) {

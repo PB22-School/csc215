@@ -9,6 +9,7 @@ enum op_codes {
 
     ADD,
     SUBTRACT,
+    MULTIPLY,
 
     BOOLEAN_OPERATIONS,
 
@@ -31,6 +32,9 @@ int toOpcode(string str) {
     }
     else if (str == "-") {
         return SUBTRACT;
+    }
+    else if (str == "*") {
+        return MULTIPLY;
     }
     else if (str == "=") {
         return EQUAL;
@@ -98,6 +102,9 @@ int main() {
                 break;
             case SUBTRACT:
                 accumulator -= other;
+                break;
+            case MULTIPLY:
+                accumulator *= other;
                 break;
             case EQUAL:
                 result = accumulator == other;
