@@ -172,6 +172,18 @@ bigint bigint::operator-(bigint b2) {
         }
     }
 
+    bool takeOneFlag = false;
+    int columnSum = 0;
+
+    for (int i = 0; i < digits.length(); i++) {
+        if (i < digits.length()) {
+            columnSum += digits[i];
+        }
+
+        if (i < b2.digits.length()) {
+            columnSum -= b2.digits[i];
+        }
+    }
 
 }
 
