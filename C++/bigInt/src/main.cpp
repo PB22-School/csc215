@@ -2,6 +2,8 @@
 
 int main() {
     bigint bint("2025");
+    bigint bint2(2025);
 
     bint.print();
+    bint2.print();
 }
