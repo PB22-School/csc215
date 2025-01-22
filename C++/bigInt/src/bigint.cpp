@@ -8,7 +8,7 @@ bigint::bigint(string str) {
         return;
     }
 
-    cout << str << endl;
+    printf("inputted: %s", str.c_str());
 
     negative = str[0] == '-';
 
@@ -16,8 +16,6 @@ bigint::bigint(string str) {
         digits[str.length() - (i + !negative)] = str[i] - '0';
         print();
     }
-
-    digitLength = str.length() - negative;
 
 }
 
@@ -27,7 +25,7 @@ void bigint::print() {
         cout << '-';
     }
 
-    for (int i = digitLength - negative; i >= 0; i--) {
+    for (int i = digits.length() - negative; i >= 0; i--) {
         cout << digits[i] + '0';
     }
 

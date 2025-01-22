@@ -10,7 +10,7 @@ class bigint {
 
     private:
     bool negative;
-    char digits[INIT_DIGIT_LENGTH];
+    string digits;
     unsigned digitLength;
 
     public:
