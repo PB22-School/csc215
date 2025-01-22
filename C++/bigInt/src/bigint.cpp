@@ -147,6 +147,31 @@ bigint bigint::operator-(bigint b2) {
     
     */
 
+    if (negative) {
+        if (b2.negative) {
+            // -a - -b = -a + b = b - a
+            negative = false;
+            b2.negative = false;
+            return b2 - *this;
+        }
+        else {
+            // -a - b = -(a + b)
+            b2.negative = true;
+            return *this + b2;
+        }
+    }
+    else {
+        if (b2.negative) {
+            // a - -b = a + b
+            b2.negative = false;
+            return *this + b2;
+        }
+        else {
+            // a - b
+            // just do regular subtraction!
+        }
+    }
+
 
 }
 
