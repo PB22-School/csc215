@@ -2,6 +2,11 @@
 #include <iostream>
 using namespace std;
 
+bigint::bigint(bool negative, string digits) {
+    this->negative = negative;
+    this->digits = digits;
+}
+
 bigint::bigint(string str) {
 
     if (str.length() == 0) {
@@ -48,27 +53,33 @@ void bigint::print() {
 
 bigint bigint::operator+(bigint b2) {
 
-    /*
-    
-    n1:
+    int carry = 0;
 
-    1 2 3 4
+    int maxLen = max(b2.digits.length(), digits.length());
+    string ndigits = "";
 
-    n2:
+    for (int i = 0; i < maxLen; i++) {
 
-    1 2 3 4 5 6 7
-    
-    */
+        if (i < digits.length()) {
+            carry += digits[i];
+        }
 
-   int carry = 0;
+        if (i < b2.digits.length()) {
+            carry += digits[i];
+        }
 
-    for (int i = 0; i < )
+        ndigits += carry % 10;
+        carry /= 10;
+
+    }
+
+    return bigint(false, ndigits);
 }
 
 bigint bigint::operator+(string str) {
-
+    return *this + bigint(str);
 }
 
 bigint bigint::operator+(int x) {
-
+    return *this + bigint(x);
 }

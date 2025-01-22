@@ -11,7 +11,8 @@ class bigint {
     private:
     bool negative;
     string digits;
-    unsigned digitLength;
+
+    bigint(bool negative, string digits);
 
     public:
 
