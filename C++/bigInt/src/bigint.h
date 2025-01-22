@@ -45,10 +45,6 @@ class bigint {
 
     void operator--();
 
-    // MULTIPLACTION OPERATORS:
-
-    // DIVISION OPERATORS:
-
     // BOOLEAN LOGIC OPERATORS:
 
 };

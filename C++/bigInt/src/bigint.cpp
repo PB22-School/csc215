@@ -53,6 +53,25 @@ void bigint::print() {
 
 bigint bigint::operator+(bigint b2) {
 
+    /*
+    
+    a  +  b = a + b
+    a  + -b = a - b
+    -a +  b = b - a
+    -a + -b = -(a + b)
+    
+    */
+
+    bool newIsNegative = false;
+    
+    if (negative) {
+        if (b2.negative) {
+            // -a + -b = -(a + b)
+            newIsNegative = true;
+            
+        }
+    }
+
     int carry = 0;
 
     int maxLen = max(b2.digits.length(), digits.length());
@@ -98,6 +117,10 @@ void bigint::operator+=(string str) {
 
 void bigint::operator+=(int x) {
     *this = *this + x;
+}
+
+bigint bigint::operator-(bigint b2) {
+
 }
 
 void bigint::operator++() {
