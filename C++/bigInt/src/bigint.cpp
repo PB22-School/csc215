@@ -47,7 +47,22 @@ void bigint::print() {
 }
 
 bigint bigint::operator+(bigint b2) {
+
+    /*
     
+    n1:
+
+    1 2 3 4
+
+    n2:
+
+    1 2 3 4 5 6 7
+    
+    */
+
+   int carry = 0;
+
+    for (int i = 0; i < )
 }
 
 bigint bigint::operator+(string str) {
