@@ -65,7 +65,7 @@ bigint bigint::operator+(bigint b2) {
         }
 
         if (i < b2.digits.length()) {
-            carry += digits[i];
+            carry += b2.digits[i];
         }
 
         ndigits += carry % 10;
@@ -98,4 +98,8 @@ void bigint::operator+=(string str) {
 
 void bigint::operator+=(int x) {
     *this = *this + x;
+}
+
+void bigint::operator++() {
+    *this += 1;
 }

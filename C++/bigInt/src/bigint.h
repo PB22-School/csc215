@@ -21,6 +21,8 @@ class bigint {
 
     void print();
 
+    // ADDITION OPERATORS:
+
     bigint operator+(bigint b2);
     bigint operator+(string str);
     bigint operator+(int x);
@@ -29,7 +31,9 @@ class bigint {
     void operator+=(string str);
     void operator+=(int x);
 
-    bigint operator++();
+    void operator++();
+
+    // SUBTRACTION OPERATORS:
     
     bigint operator-(bigint b2);
     bigint operator-(string str);
@@ -39,7 +43,13 @@ class bigint {
     void operator-=(string str);
     void operator-=(int x);
 
-    bigint operator--();
+    void operator--();
+
+    // MULTIPLACTION OPERATORS:
+
+    // DIVISION OPERATORS:
+
+    // BOOLEAN LOGIC OPERATORS:
 
 };
 
