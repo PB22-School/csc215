@@ -258,6 +258,26 @@ void bigint::operator--() {
     *this = *this - 1;
 }
 
+bigint bigint::operator*(bigint b2) {
+
+    bool isNegative = negative ^ b2.negative;
+    string ndigits = "";
+    int carry = 0;
+    int sum = 0;
+
+    int maxLen = max(digits.length(), b2.digits.length());
+
+    for (int i = 0; i < maxLen; i++) {
+
+        sum = 0;
+
+        if (i < digits.length()) {
+            sum = 
+        }
+    }
+
+}
+
 bool bigint::operator==(bigint b2) {
     return digits == b2.digits;
 }

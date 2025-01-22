@@ -57,7 +57,6 @@ class bigint {
     bigint operator*=(string str);
     bigint operator*=(int x);
 
-
     // BOOLEAN LOGIC OPERATORS:
 
     bool operator==(bigint b2);
