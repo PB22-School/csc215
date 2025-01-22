@@ -68,9 +68,6 @@ void bigint::print() {
 
 bigint bigint::operator+(bigint b2) {
 
-    if 
-
-
     /*
     
     a  +  b = a + b
@@ -209,11 +206,14 @@ bigint bigint::operator-(bigint b2) {
         }
 
         if (i < b2.digits.length()) {
+
+            columnSum -= b2.digits[i];
+
             if (b2.digits[i] > columnSum) {
                 takeOneFlag = true;
                 columnSum += 10;
             }
-            columnSum -= b2.digits[i];
+            
         }
 
         ndigits += columnSum;
@@ -355,4 +355,8 @@ bool bigint::operator<=(int x) {
 
 bigint::operator bool() const {
     return digits == "0";
+}
+
+bool bigint::operator !() const {
+    return !bool(*this);
 }

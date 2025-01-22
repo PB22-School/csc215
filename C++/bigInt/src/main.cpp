@@ -2,7 +2,7 @@
 
 int main() {
     bigint bint("1000");
-    bigint bint2(1);
+    bigint bint2(2);
 
     bint.print();
     bint2.print();

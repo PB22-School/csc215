@@ -24,7 +24,7 @@ class bigint {
     // ADDITION OPERATORS:
 
     bigint operator+(bigint b2);
-    bigint operator+(str str);
+    bigint operator+(string str);
     bigint operator+(int x);
 
     void operator+=(bigint b2);
@@ -72,6 +72,7 @@ class bigint {
     bool operator<=(int x);
 
     operator bool() const;
+    bool operator !() const;
 
 };
 
