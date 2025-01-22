@@ -57,16 +57,6 @@ class bigint {
     void operator*=(string str);
     void operator*=(int x);
 
-    // DIVISION OPERATORS:
-
-    bigint operator/(bigint b2);
-    bigint operator/(string str);
-    bigint operator/(int x);
-
-    void operator/=(bigint b2);
-    void operator/=(string str);
-    void operator/=(int x);
-
     // BOOLEAN LOGIC OPERATORS:
 
     bool operator==(bigint b2);
