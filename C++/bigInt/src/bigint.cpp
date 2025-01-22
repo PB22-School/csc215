@@ -15,7 +15,7 @@ bigint::bigint(string str) {
 
     negative = str[0] == '-';
 
-    for (int i = negative; i < str.length(); i++) {
+    for (int i = str.length() - 1; i >= negative; i--) {
         digits += str[i] - '0';
     }
 
@@ -31,11 +31,11 @@ bigint::bigint(int x) {
         x /= 10;
     }
 
-    for (int i = 0; i < digits.length() / 2; i++) {
-        char dig = digits[i];
-        digits[i] = digits[digits.length() - (i + 1)];
-        digits[digits.length() - (i + 1)] = dig;
-    }
+    // for (int i = 0; i < digits.length() / 2; i++) {
+    //     char dig = digits[i];
+    //     digits[i] = digits[digits.length() - (i + 1)];
+    //     digits[digits.length() - (i + 1)] = dig;
+    // }
 }
 
 void bigint::print() {
@@ -44,7 +44,7 @@ void bigint::print() {
         cout << '-';
     }
 
-    for (int i = 0; i < digits.length(); i++) {
+    for (int i = digits.length() - 1; i >= 0; i--) {
         putchar(digits[i] + '0');
     }
 
@@ -71,6 +71,10 @@ bigint bigint::operator+(bigint b2) {
         ndigits += carry % 10;
         carry /= 10;
 
+    }
+
+    if (carry) {
+        ndigits += carry;
     }
 
     return bigint(false, ndigits);

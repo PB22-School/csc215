@@ -1,8 +1,8 @@
 #include "bigint.h"
 
 int main() {
-    bigint bint("2025");
-    bigint bint2(2025);
+    bigint bint("9999");
+    bigint bint2(1);
 
     bint.print();
     bint2.print();
