@@ -3,24 +3,51 @@
 using namespace std;
 
 enum op_codes {
+
+    BAD_OPCODE,
+
     ADD,
-    ADD_MEM,
     SUBTRACT,
-    SUBTRACT_MEM,
 
-    EQUAL_MEM,
-    NOT_EQUAL_MEM,
+    BOOLEAN_OPERATIONS,
 
-    GREATER_THAN_MEM,
-    GREATER_THAN_EQUAL_MEM,
-
-    LESS_THAN_MEM,
-    LESS_THAN_EQUAL_MEM
+    EQUAL,
+    NOT_EQUAL,
+    GREATER_THAN,
+    LESS_THAN,
+    GREATER_THAN_OR_EQUAL,
+    LESS_THAN_OR_EQUAL
 
 };
 
 int toOpcode(string str) {
 
+    if (str == "+") {
+        return ADD;
+    }
+    else if (str == "-") {
+        return SUBTRACT;
+    }
+    else if (str == "=") {
+        return EQUAL;
+    }
+    else if (str == "!=") {
+        return NOT_EQUAL;
+    }
+    else if (str == ">") {
+        return GREATER_THAN;
+    }
+    else if (str == ">=") {
+        return GREATER_THAN_OR_EQUAL;
+    }
+    else if (str == "<") {
+        return LESS_THAN;
+    }
+    else if (str == "<=") {
+        return LESS_THAN_OR_EQUAL;
+    }
+
+    return BAD_OPCODE;
 }
 
 
@@ -42,7 +69,7 @@ int main() {
 
         switch (opcode) {
             case ADD:
-
+                accumulator += 
                 break;
         }
 
