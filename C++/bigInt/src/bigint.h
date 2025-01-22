@@ -20,6 +20,7 @@ class bigint {
     bigint(int x);
     bigint();
 
+    void inLinePrint();
     void print();
 
     // ADDITION OPERATORS:

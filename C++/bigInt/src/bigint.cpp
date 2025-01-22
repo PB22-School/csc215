@@ -58,7 +58,7 @@ bigint::bigint() {
     negative = false;
 }
 
-void bigint::print() {
+void bigint::inLinePrint() {
 
     if (negative) {
         cout << '-';
@@ -67,7 +67,10 @@ void bigint::print() {
     for (int i = digits.length() - 1; i >= 0; i--) {
         putchar(digits[i] + '0');
     }
+}
 
+void bigint::print() {
+    inLinePrint();
     cout << endl;
 }
 

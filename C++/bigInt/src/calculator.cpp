@@ -5,6 +5,7 @@ using namespace std;
 enum op_codes {
 
     BAD_OPCODE,
+    EXIT,
 
     ADD,
     SUBTRACT,
@@ -22,7 +23,10 @@ enum op_codes {
 
 int toOpcode(string str) {
 
-    if (str == "+") {
+    if (str == "exit") {
+        return EXIT;
+    }
+    else if (str == "+") {
         return ADD;
     }
     else if (str == "-") {
@@ -52,7 +56,7 @@ int toOpcode(string str) {
 
 
 int main() {
-    bigint mem;
+    bigint other;
     string in;
     int opcode;
 
@@ -67,10 +71,26 @@ int main() {
 
         opcode = toOpcode(in);
 
+        if (opcode == BAD_OPCODE) {
+            cout << "BAD OPCODE!! " << in << " IS NOT! A VALID OPCODE." << endl;
+            continue;
+        }
+
+        cout << "Type New Number: ";
+        cin >> in;
+
+        other = bigint(in);
+
+        accumulator.inLinePrint();
+
         switch (opcode) {
             case ADD:
-                accumulator += 
+                accumulator += other;
                 break;
+            case SUBTRACT:
+                accumulator -= other;
+                break;
+            
         }
 
     }
