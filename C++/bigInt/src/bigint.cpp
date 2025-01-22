@@ -262,10 +262,27 @@ bool bigint::operator==(int x) {
     return digits == bigint(x).digits;
 }
 
-bool bigint::operator==(bigint b2);
-    bool operator==(string str);
-    bool operator==(int x);
+bool bigint::operator!=(bigint b2) {
+    return !(digits == b2.digits);
+}
+
+bool bigint::operator!=(string str) {
+    return !(digits == bigint(str).digits);
+}
+
+bool bigint::operator!=(int x) {
+    return !(digits == bigint(x).digits);
+}
 
 bool bigint::operator>(bigint b2) {
-    if (b2.)
+    if (!negative && b2.negative) {
+        // + > -
+        return true;
+    }
+    
+    if (negative && !b2.negative) {
+        // - > +
+        return false;
+    }
+
 }
