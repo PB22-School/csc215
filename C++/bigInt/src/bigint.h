@@ -13,12 +13,10 @@ class bigint {
     char digits[INIT_DIGIT_LENGTH];
     unsigned digitLength;
 
-    bigint();
-
     public:
 
-    static bigint from_str(string str);
-    static bigint from_int(int x);
+    bigint(string str);
+    bigint(int x);
 
     void print();
 
