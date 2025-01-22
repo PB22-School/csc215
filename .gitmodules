@@ -1,3 +1,6 @@
 [submodule "C++/poker/cards"]
 	path = C++/poker/cards
 	url = https://github.com/BlueZeeKing/cards.git
+[submodule "C++/poker/ncurses"]
+	path = C++/poker/ncurses
+	url = https://github.com/mirror/ncurses
