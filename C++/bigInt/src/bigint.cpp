@@ -285,4 +285,24 @@ bool bigint::operator>(bigint b2) {
         return false;
     }
 
+    if (digits.length() > b2.digits.length()) {
+        return true;
+    }
+    
+    if (digits.length() < b2.digits.length()) {
+        return false;
+    }
+
+    // digits lengths are equal
+    for (int i = 0; i < digits.length(); i++) {
+
+        if (digits[i] > b2.digits[i]) {
+            return true;
+        }
+
+        if (digits[i] < b2.digits[i]) {
+            return false;
+        }
+    }
+
 }
