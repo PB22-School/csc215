@@ -2,7 +2,8 @@
 #include "random"
 
 randomNumbers::randomNumbers() {
-    next *= ulong(random());
+    srand(time(NULL));
+    next *= ulong(random() * rand());
 }
 
 ulong randomNumbers::get_next() {
