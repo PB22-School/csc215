@@ -1,6 +1,9 @@
 #include "BlackJack.h"
 #include "ncursesw/ncurses.h"
 
+#include <iostream>
+using namespace std;
+
 BlackJack::BlackJack() : DealerHand(1) {
     for (int i = 0; i < 2; i++) {
         DealerHand.add_card(deck.getCard());
@@ -9,6 +12,9 @@ BlackJack::BlackJack() : DealerHand(1) {
 }
 
 void BlackJack::start_game() {
+
+    // mvaddstr(20, 0, "hello");
+    draw();
 
     while (!gameOver) {
         if (update()) {
@@ -23,6 +29,7 @@ bool BlackJack::update() {
     bool changes = true;
 
     char gotChar = getch();
+
     switch (gotChar) {
         case 'q':
             return true;
@@ -100,11 +107,12 @@ void BlackJack::stand() {
 }
 
 void BlackJack::draw() {
-    clear();
-    DealerHand.draw(50, 50);
-    PlayerHand.draw(50, 75);
 
-    for (int i = 1; i < buttons.size(); i++) {
+    clear();
+    DealerHand.draw(50, 10);
+    // PlayerHand.draw(75, 75);
+
+    for (int i = 0; i < buttons.size(); i++) {
         if (buttonSelect == i) {
             color_set(COLOR_YELLOW, nullptr);
         }
@@ -112,17 +120,15 @@ void BlackJack::draw() {
             color_set(COLOR_WHITE, nullptr);
         }
 
-        mvaddstr(50, 80 + (i * 3), buttons[i].c_str());
+        mvaddstr(20, 20 + (i * 3), buttons[i].c_str());
     }
 
     if (gameOver) {
         if (playerWins) {
-
             color_set(COLOR_GREEN, nullptr);
             mvaddstr(100, 60, "YOU WIN!");
         }
         else {
-
             color_set(COLOR_RED, nullptr);
             mvaddstr(100, 60, "YOU LOST!");
         }

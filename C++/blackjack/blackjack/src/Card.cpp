@@ -17,11 +17,11 @@ int Card::getValue() const {
 
 
 /*
-
-[--]
-|4 |
-|* |
-[--]
+  0123
+0 [--]
+1 |4 |
+2 |* |
+3 [--]
 
 */
 void Card::display(int x, int y, bool visible = false) {
@@ -36,36 +36,32 @@ void Card::display(int x, int y, bool visible = false) {
     if (visible) {
         switch (suit) {
         case 0:
-            color_set(COLOR_CARD_BLACK, nullptr);
-            mvaddstr(x + 1, y, "♣ ");
+            mvaddstr(y + 2, x + 1, "♣ ");
             break;
         case 1:
-            color_set(COLOR_CARD_RED, nullptr);
-            mvaddstr(x + 1, y, "♦ ");
+            mvaddstr(y + 2, x + 1, "♦ ");
             break;
         case 2:
-            color_set(COLOR_CARD_RED, nullptr);
-            mvaddstr(x + 1, y, "♦ ");
+            mvaddstr(y + 2, x + 1, "♥ ");
             break;
         case 3:
-            color_set(COLOR_CARD_RED, nullptr);
-            mvaddstr(x + 1, y, "♦ ");
+            mvaddstr(y + 2, x + 1, "♠ ");
             break;
         }
     }
     else {
-        mvaddstr(x + 1, y, "█ ");
-        mvaddstr(x + 1, y + 1, " █");
+        mvaddstr(x, y, "█ ");
+        mvaddstr(x, y, " █");
     }
 
-    mvvline(x, y - 1, 0, 2);
-    mvvline(x, y + 1, 0, 2);
-    mvvline(x - 1, y - 1, 0, 2);
-    mvvline(x + 2, y - 1, 0, 2);
-    mvaddch(x - 1, y - 1, ACS_ULCORNER);
-    mvaddch(x - 1, y + 2, ACS_URCORNER);
-    mvaddch(x + 2, y - 1, ACS_LLCORNER);
-    mvaddch(x + 2, y + 2, ACS_LRCORNER);
+    mvaddch(y, x, ACS_ULCORNER);
+    mvaddch(y, x + 3, ACS_URCORNER);
+    mvaddch(y + 3, x, ACS_LLCORNER);
+    mvaddch(y + 3, x + 3, ACS_LRCORNER);
+    mvhline(y, x + 1, ACS_HLINE, 2);
+    mvhline(y + 3, x + 1, ACS_HLINE, 2);
+    mvvline(y + 1, x, ACS_VLINE, 2);
+    mvvline(y + 1, x + 3, ACS_VLINE, 2);
 
     if (!visible) {
         return;
@@ -73,43 +69,43 @@ void Card::display(int x, int y, bool visible = false) {
 
     switch (rank) {
     case 1:
-        mvaddstr(x, y, "A ");
+        mvaddstr(y + 1, x + 1, "A ");
         break;
     case 2:
-        mvaddstr(x, y, "2 ");
+        mvaddstr(y + 1, x + 1, "2 ");
         break;
     case 3:
-        mvaddstr(x, y, "3 ");
+        mvaddstr(y + 1, x + 1, "3 ");
         break;
     case 4:
-        mvaddstr(x, y, "4 ");
+        mvaddstr(y + 1, x + 1, "4 ");
         break;
     case 5:
-        mvaddstr(x, y, "5 ");
+        mvaddstr(y + 1, x + 1, "5 ");
         break;
     case 6:
-        mvaddstr(x, y, "6 ");
+        mvaddstr(y + 1, x + 1, "6 ");
         break;
     case 7:
-        mvaddstr(x, y, "7 ");
+        mvaddstr(y + 1, x + 1, "7 ");
         break;
     case 8:
-        mvaddstr(x, y, "8 ");
+        mvaddstr(y + 1, x + 1, "8 ");
         break;
     case 9:
-        mvaddstr(x, y, "9 ");
+        mvaddstr(y + 1, x + 1, "9 ");
         break;
     case 10:
-        mvaddstr(x, y, "10");
+        mvaddstr(y + 1, x + 1, "10");
         break;
     case 11:
-        mvaddstr(x, y, "J ");
+        mvaddstr(y + 1, x + 1, "J ");
         break;
     case 12:
-        mvaddstr(x, y, "Q ");
+        mvaddstr(y + 1, x + 1, "Q ");
         break;
     case 13:
-        mvaddstr(x, y, "K ");
+        mvaddstr(y + 1, x + 1, "K ");
         break;
     }
 

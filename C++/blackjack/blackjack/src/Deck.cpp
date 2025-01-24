@@ -13,7 +13,7 @@ void Deck::shuffleDeck() {
 
 Deck::Deck() {
     for (int cardIndex = ACE; cardIndex < DECKSIZE_MAX + 1; cardIndex++) {
-        cards[cardIndex - 1] = Card(cardIndex / KING, cardIndex % KING);
+        cards.push_back(Card(cardIndex / KING, cardIndex % KING));
     }
 
     shuffleDeck();

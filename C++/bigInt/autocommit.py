@@ -8,7 +8,7 @@ number = 1
 
 def commit(num):
     os.system(f"cd {path}; git add .")
-    os.system(f"cd {path}; git commit -m 'bigint {num}'")
+    os.system(f"cd {path}; git commit -m 'blackjack {num}'")
     os.system(f"cd {path}; git push")
 
 while True:

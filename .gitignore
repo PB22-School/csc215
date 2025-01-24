@@ -1,1 +1,6 @@
 .DS_Store
+*/*.bin
+*/*/*.bin
+*/*/.vscode/
+C++/bigInt/src/calculator
+C++/*/build/
