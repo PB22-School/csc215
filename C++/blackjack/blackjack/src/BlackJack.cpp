@@ -13,6 +13,8 @@ BlackJack::BlackJack() : DealerHand(1) {
 
     init_pair(WHITE, COLOR_WHITE, COLOR_BLACK);
     init_pair(YELLOW, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(GREEN, COLOR_GREEN, COLOR_BLACK);
+    init_pair(RED, COLOR_RED, COLOR_BLACK);
 }
 
 void BlackJack::start_game() {
@@ -22,6 +24,14 @@ void BlackJack::start_game() {
 
     while (!gameOver) {
         if (update()) {
+            return;
+        }
+    }
+
+    draw();
+
+    while (gameOver) {
+        if (getch() != ERR) {
             return;
         }
     }
@@ -147,11 +157,11 @@ void BlackJack::draw() {
 
     if (gameOver) {
         if (playerWins) {
-            color_set(COLOR_GREEN, nullptr);
+            color_set(GREEN, nullptr);
             mvaddstr(100, 60, "YOU WIN!");
         }
         else {
-            color_set(COLOR_RED, nullptr);
+            color_set(RED, nullptr);
             mvaddstr(100, 60, "YOU LOST!");
         }
     }

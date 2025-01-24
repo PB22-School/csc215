@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
     initscr();
     noecho();
     start_color();
-    timeout(-1);
+    timeout(0);
     curs_set(0);
     keypad(stdscr, true);
 

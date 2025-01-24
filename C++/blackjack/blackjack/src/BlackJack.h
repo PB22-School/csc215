@@ -7,7 +7,9 @@ using namespace std;
 enum colors {
     WHITE = 3,
     BLACK,
-    YELLOW
+    YELLOW,
+    GREEN,
+    RED
 };
 
 class BlackJack {
