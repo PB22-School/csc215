@@ -84,14 +84,14 @@ void BlackJack::draw_button(string text, int x, int y, int padding) {
     mvaddstr(y, x, text.c_str());
     mvaddch(y - padding, x - padding, ACS_ULCORNER);
     mvaddch(y + padding, x - padding, ACS_LLCORNER);
-    mvaddch(y + padding, x + padding + len, ACS_URCORNER);
-    mvaddch(y - padding, x + padding + len, ACS_LRCORNER);
+    mvaddch(y + padding, x + padding + len, ACS_LRCORNER);
+    mvaddch(y - padding, x + padding + len, ACS_URCORNER);
 
-    mvhline(y - padding, x - padding + 1, ACS_HLINE, len + padding);
-    mvhline(y + padding, x - padding + 1, ACS_HLINE, len + padding);
+    mvhline(y - padding, x - padding + 1, ACS_HLINE, len + padding + 1);
+    mvhline(y + padding, x - padding + 1, ACS_HLINE, len + padding + 1);
 
-    mvvline(y - padding + 1, x - padding, ACS_VLINE, padding);
-    mvvline(y + padding + 1, x + padding + 1, ACS_VLINE, padding);
+    mvvline(y - padding + 1, x - padding, ACS_VLINE, padding + 1);
+    mvvline(y - padding + 1, x + padding + len, ACS_VLINE, padding + 1);
 }
 
 void BlackJack::hit() {
