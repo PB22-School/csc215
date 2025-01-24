@@ -1,2 +1,2 @@
 fun():
-	g++ src/calculator.cpp src/bigint.cpp -o src/calculator; ./src/calculator
+	mkdir build; g++ src/calculator.cpp src/bigint.cpp -o build/calculator; ./build/calculator

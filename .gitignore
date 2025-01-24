@@ -1,6 +1,8 @@
 .DS_Store
-*/*.bin
-*/*/*.bin
-*/*/.vscode/
-C++/bigInt/src/calculator
-C++/*/build/
+/Projects/multiply-8bit.bin
+/Projects/clock.asm
+/C++/blackjack/.vscode/
+/C++/blackjack/blackjack/.vscode
+/C++/blackjack/blackjack/build
+/C++/bigInt/.vscode/
+/C++/bigInt/build
