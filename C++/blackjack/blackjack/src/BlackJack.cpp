@@ -7,8 +7,12 @@ using namespace std;
 BlackJack::BlackJack() : DealerHand(1) {
     for (int i = 0; i < 2; i++) {
         DealerHand.add_card(deck.getCard());
-        PlayerHand.add_card(deck.getCard());
     }
+    
+    PlayerHand.add_card(deck.getCard());
+
+    init_pair(WHITE, COLOR_WHITE, COLOR_BLACK);
+    init_pair(YELLOW, COLOR_YELLOW, COLOR_BLACK);
 }
 
 void BlackJack::start_game() {
@@ -73,6 +77,23 @@ bool BlackJack::update() {
     return false;
 }
 
+void BlackJack::draw_button(string text, int x, int y, int padding) {
+
+    int len = text.length();
+
+    mvaddstr(y, x, text.c_str());
+    mvaddch(y - padding, x - padding, ACS_ULCORNER);
+    mvaddch(y + padding, x - padding, ACS_LLCORNER);
+    mvaddch(y + padding, x + padding + len, ACS_URCORNER);
+    mvaddch(y - padding, x + padding + len, ACS_LRCORNER);
+
+    mvhline(y - padding, x - padding + 1, ACS_HLINE, len + padding);
+    mvhline(y + padding, x - padding + 1, ACS_HLINE, len + padding);
+
+    mvvline(y - padding + 1, x - padding, ACS_VLINE, padding);
+    mvvline(y + padding + 1, x + padding + 1, ACS_VLINE, padding);
+}
+
 void BlackJack::hit() {
     PlayerHand.add_card(deck.getCard());
 
@@ -110,17 +131,18 @@ void BlackJack::draw() {
 
     clear();
     DealerHand.draw(50, 10);
-    // PlayerHand.draw(75, 75);
+    PlayerHand.draw(50, 20);
 
     for (int i = 0; i < buttons.size(); i++) {
         if (buttonSelect == i) {
-            color_set(COLOR_YELLOW, nullptr);
+            color_set(YELLOW, nullptr);
         }
         else {
-            color_set(COLOR_WHITE, nullptr);
+            color_set(WHITE, nullptr);
         }
 
-        mvaddstr(20, 20 + (i * 3), buttons[i].c_str());
+        // mvaddstr(20, 20 + (i * 3), buttons[i].c_str());
+        draw_button(buttons[i], 20 + (i * 10), 30, 2);
     }
 
     if (gameOver) {

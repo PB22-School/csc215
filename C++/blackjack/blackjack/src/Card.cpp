@@ -50,8 +50,8 @@ void Card::display(int x, int y, bool visible = false) {
         }
     }
     else {
-        mvaddstr(x, y, "█ ");
-        mvaddstr(x, y, " █");
+        mvaddstr(y + 1, x + 1, "█ ");
+        mvaddstr(y + 2, x + 1, " █");
     }
 
     mvaddch(y, x, ACS_ULCORNER);
@@ -106,6 +106,9 @@ void Card::display(int x, int y, bool visible = false) {
         break;
     case 13:
         mvaddstr(y + 1, x + 1, "K ");
+        break;
+    default:
+        mvaddstr(y + 1, x + 1, "? ");
         break;
     }
 

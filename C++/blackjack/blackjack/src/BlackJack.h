@@ -4,6 +4,12 @@
 #include <string>
 using namespace std;
 
+enum colors {
+    WHITE = 3,
+    BLACK,
+    YELLOW
+};
+
 class BlackJack {
     Deck deck;
     Hand DealerHand;
@@ -19,6 +25,9 @@ class BlackJack {
     
     void start_game();
     bool update();
+
+    void draw_button(string text, int x, int y, int padding);
+
     void draw();
 
     void hit();

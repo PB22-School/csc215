@@ -7,10 +7,9 @@ typedef unsigned long ulong;
 class Hand {
     vector<Card> cards;
     ulong visibility;
-    bool is_private;
 
     public:
-    Hand(ulong visiblity= ULONG_MAX);
+    Hand(ulong visiblity=ULONG_MAX);
     void add_card(Card card);
     Card drop_card(int cardIndex);
 
