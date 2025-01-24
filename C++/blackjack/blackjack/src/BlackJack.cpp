@@ -38,15 +38,15 @@ bool BlackJack::update() {
         case 'q':
             return true;
 
-        case KEY_LEFT:
+        case 'a':
             buttonSelect = (buttonSelect - 1) % buttons.size();
             break;
 
-        case KEY_RIGHT:
+        case 'd':
             buttonSelect = (buttonSelect + 1) % buttons.size();
             break;
         
-        case KEY_ENTER:
+        case 'w':
             if (buttons[buttonSelect] == "HIT") {
                 hit();
             }
