@@ -5,10 +5,9 @@ using namespace std;
 typedef unsigned long ulong;
 
 class Hand {
+    public:
     vector<Card> cards;
     ulong visibility;
-
-    public:
     Hand(ulong visiblity=ULONG_MAX);
     void add_card(Card card);
     Card drop_card(int cardIndex);

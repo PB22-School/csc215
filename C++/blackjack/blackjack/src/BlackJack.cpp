@@ -4,6 +4,22 @@
 #include <iostream>
 using namespace std;
 
+string itos(int x) {
+    string s = "";
+    while (x) {
+        s += (x % 10) + '0';
+        x /= 10;
+    }
+
+    for (int i = 0; i < s.length() / 2; i++) {
+        char c = s[i];
+        s[i] = s[s.length() - (i + 1)];
+        s[s.length() - (i + 1)] = c;
+    }
+
+    return s;
+}
+
 BlackJack::BlackJack() : DealerHand(1) {
     for (int i = 0; i < 2; i++) {
         DealerHand.add_card(deck.getCard());
@@ -14,7 +30,7 @@ BlackJack::BlackJack() : DealerHand(1) {
     init_pair(WHITE, COLOR_WHITE, COLOR_BLACK);
     init_pair(YELLOW, COLOR_YELLOW, COLOR_BLACK);
     init_pair(GREEN, COLOR_GREEN, COLOR_BLACK);
-    init_pair(RED, COLOR_RED, COLOR_BLACK);
+    init_pair(RED, COLOR_RED, COLOR_WHITE);
 }
 
 void BlackJack::start_game() {
@@ -87,6 +103,28 @@ bool BlackJack::update() {
     return false;
 }
 
+int BlackJack::hand_value(Hand hand) {
+
+    int aceCount = 0;
+    int sum = 0;
+
+    for (int i = 0; i < hand.size(); i++) {
+        if (hand.cards[i].getValue() == ACE) {
+            aceCount++;
+            sum += 11;
+            continue;
+        }
+
+        sum += hand.cards[i].getValue();
+    }
+
+    while ((sum > 21) and (aceCount)) {
+        sum -= 10;
+    }
+
+    return sum;
+}
+
 void BlackJack::draw_button(string text, int x, int y, int padding) {
 
     int len = text.length();
@@ -120,7 +158,7 @@ void BlackJack::stand() {
     // dealer >= player, dealer wins
 
     while (true) {
-        if (PlayerHand.getValue() > DealerHand.getValue()) {
+        if (hand_value(PlayerHand) > hand_value(DealerHand)) {
             DealerHand.add_card(deck.getCard());
             continue;
         }
@@ -128,8 +166,12 @@ void BlackJack::stand() {
         break;
     }
 
-    if (DealerHand.getValue() > 21) {
+    if (hand_value(DealerHand) > 21) {
         playerWins = true;
+    }
+    
+    if (hand_value(DealerHand) == 21 && hand_value(PlayerHand) == 21) {
+        playerWins = false;
     }
 
     DealerHand.reveal();
@@ -156,13 +198,20 @@ void BlackJack::draw() {
     }
 
     if (gameOver) {
+
+        color_set(WHITE, nullptr);
+        mvaddstr(10, 20, "Dealer's Hand:");
+        mvaddstr(11, 20, itos(hand_value(DealerHand)).c_str());
+        mvaddstr(20, 20, "Your Hand:");
+        mvaddstr(21, 20, itos(hand_value(PlayerHand)).c_str());
+
         if (playerWins) {
             color_set(GREEN, nullptr);
-            mvaddstr(100, 60, "YOU WIN!");
+            mvaddstr(17, 55, "YOU WIN!");
         }
         else {
             color_set(RED, nullptr);
-            mvaddstr(100, 60, "YOU LOST!");
+            mvaddstr(17, 55, "YOU LOST!");
         }
     }
 }
