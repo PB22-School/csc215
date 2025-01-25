@@ -6,6 +6,11 @@ using namespace std;
 
 string itos(int x) {
     string s = "";
+
+    if (!x) {
+        return "0";
+    }
+
     while (x) {
         s += (x % 10) + '0';
         x /= 10;
@@ -96,21 +101,9 @@ bool BlackJack::update() {
             else if (buttons[buttonSelect] == "STAND") {
                 stand();
             }
-            break;
-        
-        case 'h':
-            // HIT
-            hit();
-            break;
-        
-        case 's':
-            // STAND
-            stand();
-            break;
-        
-        case 'r':
-            // RAISE
-            raise();
+            else if (buttons[buttonSelect] == "RAISE") {
+                raise();
+            }
             break;
         
         default:
@@ -197,6 +190,12 @@ int BlackJack::button_length(string text, int padding) {
 }
 
 void BlackJack::hit() {
+
+    if (buttons.size() == 3) {
+        // get rid of raise option after hit
+        buttons.pop_back();
+    }
+
     PlayerHand.add_card(deck.getCard());
 
     if (hand_value(PlayerHand) > 21) {
@@ -235,7 +234,8 @@ void BlackJack::stand() {
 }
 
 void BlackJack::raise() {
-    
+    pot += 100;
+    playerMoney -= 100;
 }
 
 void BlackJack::draw() {
@@ -260,6 +260,22 @@ void BlackJack::draw() {
 
     }
 
+    if (playerMoney > 0) {
+        color_set(GREEN, nullptr);
+    }
+    else {
+        color_set(RED, nullptr);
+    }
+
+    mvaddstr(10, 80, "Money: $");
+    mvaddstr(10, 88, itos(playerMoney).c_str());
+    mvaddstr(10, 88 + itos(playerMoney).length(), "!");
+    
+    color_set(WHITE, nullptr);
+    mvaddstr(12, 80, "Pot: $");
+    mvaddstr(12, 86, itos(pot).c_str());
+    mvaddstr(12, 86 + itos(pot).length(), "!");
+
     if (gameOver) {
 
         color_set(WHITE, nullptr);
@@ -270,11 +286,15 @@ void BlackJack::draw() {
 
         if (playerWins) {
             color_set(GREEN, nullptr);
-            mvaddstr(17, 80, "YOU WIN!");
+            mvaddstr(17, 80, "YOU WIN $");
+            mvaddstr(17, 89, itos(pot * 2).c_str());
+            mvaddstr(17, 89 + itos(pot * 2).length(), "!");
         }
         else {
             color_set(RED, nullptr);
-            mvaddstr(17, 80, "YOU LOST!");
+            mvaddstr(17, 80, "YOU LOST $");
+            mvaddstr(17, 90, itos(pot).c_str());
+            mvaddstr(17, 90 + itos(pot).length(), "!");
         }
     }
 }
