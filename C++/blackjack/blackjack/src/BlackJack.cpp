@@ -41,7 +41,7 @@ BlackJack::BlackJack() : DealerHand(1) {
     init_pair(WHITE, COLOR_WHITE, COLOR_BLACK);
     init_pair(YELLOW, COLOR_YELLOW, COLOR_BLACK);
     init_pair(GREEN, COLOR_GREEN, COLOR_BLACK);
-    init_pair(RED, COLOR_RED, COLOR_WHITE);
+    init_pair(RED, COLOR_WHITE, COLOR_RED);
 }
 
 void BlackJack::start_game() {
@@ -57,8 +57,8 @@ void BlackJack::start_game() {
             }
         }
         else if (gameOver) {
-            mvaddstr(20, 35, "Press 'Q' to Quit.");
-            mvaddstr(22, 35, "Press Any Other Key to Replay.");
+            mvaddstr(20, 80, "Press 'Q' to Quit.");
+            mvaddstr(22, 80, "Press Any Other Key to Replay.");
             char c = getch();
             if (c == 'q') {
                 return;
@@ -165,6 +165,7 @@ void BlackJack::hit() {
     if (PlayerHand.getValue() > 21) {
         gameOver = true;
         playerWins = false;
+        DealerHand.reveal();
     }
 
 }
@@ -224,11 +225,11 @@ void BlackJack::draw() {
 
         if (playerWins) {
             color_set(GREEN, nullptr);
-            mvaddstr(17, 55, "YOU WIN!");
+            mvaddstr(17, 80, "YOU WIN!");
         }
         else {
             color_set(RED, nullptr);
-            mvaddstr(17, 55, "YOU LOST!");
+            mvaddstr(17, 80, "YOU LOST!");
         }
     }
 }
