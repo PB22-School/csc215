@@ -47,6 +47,9 @@ void Card::display(int x, int y, bool visible = false) {
         case 3:
             mvaddstr(y + 2, x + 1, "♠ ");
             break;
+        default:
+            mvaddstr(y + 2, x + 1, "? ");
+            break;
         }
     }
     else {

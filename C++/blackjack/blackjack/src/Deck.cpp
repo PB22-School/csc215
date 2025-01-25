@@ -28,10 +28,9 @@ Card Deck::getCard() {
 void Deck::resetDeck() {
     cards.clear();
 
-    for (int cardIndex = ACE; cardIndex < DECKSIZE_MAX + 1; cardIndex++) {
+    for (int cardIndex = ACE; cardIndex < DECKSIZE_MAX; cardIndex++) {
         cards.push_back(Card(cardIndex / KING, (cardIndex % KING) + 1));
     }
 
     shuffleDeck();
-
 }

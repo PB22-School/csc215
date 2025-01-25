@@ -126,13 +126,20 @@ int BlackJack::hand_value(Hand hand) {
     int sum = 0;
 
     for (int i = 0; i < hand.size(); i++) {
-        if (hand.cards[i].getValue() == ACE) {
+
+        int card = hand.cards[i].getValue();
+
+        if (card == ACE) {
             aceCount++;
             sum += 11;
             continue;
         }
+        else if (card >= MIN_FACE_CARD) {
+            sum += 10;
+            continue;
+        }
 
-        sum += hand.cards[i].getValue();
+        sum += card;
     }
 
     while ((sum > 21) and (aceCount)) {
