@@ -142,8 +142,9 @@ int BlackJack::hand_value(Hand hand) {
         sum += card;
     }
 
-    while ((sum > 21) and (aceCount)) {
+    while ((sum > 21) && (aceCount)) {
         sum -= 10;
+        aceCount--;
     }
 
     return sum;
