@@ -12,11 +12,7 @@ void Deck::shuffleDeck() {
 }
 
 Deck::Deck() {
-    for (int cardIndex = ACE; cardIndex < DECKSIZE_MAX + 1; cardIndex++) {
-        cards.push_back(Card(cardIndex / KING, (cardIndex % KING) + 1));
-    }
-
-    shuffleDeck();
+    resetDeck();
 }
 
 Card Deck::getCard() {
@@ -27,4 +23,15 @@ Card Deck::getCard() {
     cards.erase(cards.begin() + index);
 
     return retCard;
+}
+
+void Deck::resetDeck() {
+    cards.clear();
+
+    for (int cardIndex = ACE; cardIndex < DECKSIZE_MAX + 1; cardIndex++) {
+        cards.push_back(Card(cardIndex / KING, (cardIndex % KING) + 1));
+    }
+
+    shuffleDeck();
+
 }

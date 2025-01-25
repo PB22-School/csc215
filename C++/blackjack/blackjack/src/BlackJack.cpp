@@ -20,12 +20,23 @@ string itos(int x) {
     return s;
 }
 
-BlackJack::BlackJack() : DealerHand(1) {
-    for (int i = 0; i < 2; i++) {
-        DealerHand.add_card(deck.getCard());
-    }
-    
+void BlackJack::restart_game() {
+    gameOver = false;
+    deck.resetDeck();
+    DealerHand.clear();
+    PlayerHand.clear();
+
+    DealerHand.visibility = 1;
+
+    DealerHand.add_card(deck.getCard());
     PlayerHand.add_card(deck.getCard());
+    DealerHand.add_card(deck.getCard());
+
+    draw();
+}
+
+BlackJack::BlackJack() : DealerHand(1) {
+    restart_game();
 
     init_pair(WHITE, COLOR_WHITE, COLOR_BLACK);
     init_pair(YELLOW, COLOR_YELLOW, COLOR_BLACK);
@@ -38,17 +49,23 @@ void BlackJack::start_game() {
     // mvaddstr(20, 0, "hello");
     draw();
 
-    while (!gameOver) {
-        if (update()) {
-            return;
+    while (true) {
+        if (!gameOver) {
+            if (update()) {
+                return;
+            }
         }
-    }
-
-    draw();
-
-    while (gameOver) {
-        if (getch() != ERR) {
-            return;
+        else if (gameOver) {
+            draw();
+            mvaddstr(20, 35, "Press 'Q' to Quit.");
+            mvaddstr(22, 35, "Press Any Other Key to Replay.");
+            char c = getch();
+            if (c == 'q') {
+                return;
+            }
+            else if (c != ERR) {
+                restart_game();
+            }
         }
     }
 

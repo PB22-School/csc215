@@ -25,6 +25,7 @@ class BlackJack {
     public:
     BlackJack();
     
+    void restart_game();
     void start_game();
     bool update();
 

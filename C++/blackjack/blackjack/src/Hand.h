@@ -16,6 +16,7 @@ class Hand {
     int size();
     int getValue();
 
+    void clear();
     void reveal();
     void draw(int x, int y);
 };

@@ -19,8 +19,18 @@ int main(int argc, char* argv[]) {
     init_pair(COLOR_CARD_BLACK, COLOR_WHITE, COLOR_BLACK);
 
     BlackJack game = BlackJack();
-    cout << "hello!!!!" << endl;
-    game.start_game();
+    char c = getch();
+    
+    while (true) {
+
+        if (c == 'q') {
+            break;
+        }
+
+        if (c != ERR) {
+            game.start_game();
+        }
+    }
 
     endwin();
 }

@@ -4,6 +4,10 @@ Hand::Hand(ulong visibility) {
     this->visibility = visibility;
 }
 
+void Hand::clear() {
+    cards.clear();
+}
+
 void Hand::add_card(Card card) {
     cards.push_back(card);
 }

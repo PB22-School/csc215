@@ -14,5 +14,5 @@ class Deck {
     Deck();
     Card getCard();
     void shuffleDeck();
-
+    void resetDeck();
 };
