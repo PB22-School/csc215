@@ -169,7 +169,7 @@ void BlackJack::draw_button(string text, int x, int y, int padding) {
 void BlackJack::hit() {
     PlayerHand.add_card(deck.getCard());
 
-    if (PlayerHand.getValue() > 21) {
+    if (hand_value(PlayerHand) > 21) {
         gameOver = true;
         playerWins = false;
         DealerHand.reveal();
