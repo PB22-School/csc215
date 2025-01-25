@@ -57,7 +57,6 @@ void BlackJack::start_game() {
             }
         }
         else if (gameOver) {
-            draw();
             mvaddstr(20, 35, "Press 'Q' to Quit.");
             mvaddstr(22, 35, "Press Any Other Key to Replay.");
             char c = getch();
