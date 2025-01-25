@@ -47,6 +47,7 @@ BlackJack::BlackJack() : DealerHand(1) {
 void BlackJack::start_game() {
 
     // mvaddstr(20, 0, "hello");
+    gameOver = false;
     draw();
 
     while (true) {
