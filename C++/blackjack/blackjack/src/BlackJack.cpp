@@ -29,7 +29,10 @@ void BlackJack::restart_game() {
     gameOver = false;
     pot = 0;
 
-    buttons.push_back("RAISE");
+    if (buttons.size() != 3) {
+        buttons.push_back("RAISE");
+    }
+    
     deck.resetDeck();
     DealerHand.clear();
     PlayerHand.clear();
