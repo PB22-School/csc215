@@ -108,6 +108,11 @@ bool BlackJack::update() {
             stand();
             break;
         
+        case 'r':
+            // RAISE
+            raise();
+            break;
+        
         default:
             changes = false;
             break;
@@ -188,7 +193,7 @@ void BlackJack::draw_button(string text, int x, int y, int padding) {
 }
 
 int BlackJack::button_length(string text, int padding) {
-    return text.length() + (padding * 2);
+    return text.length() + (padding * 2) + 2;
 }
 
 void BlackJack::hit() {
@@ -229,11 +234,17 @@ void BlackJack::stand() {
 
 }
 
+void BlackJack::raise() {
+    
+}
+
 void BlackJack::draw() {
 
     clear();
     DealerHand.draw(50, 10);
     PlayerHand.draw(50, 20);
+
+    int sum = 0;
 
     for (int i = 0; i < buttons.size(); i++) {
         if (buttonSelect == i) {
@@ -244,7 +255,9 @@ void BlackJack::draw() {
         }
 
         // mvaddstr(20, 20 + (i * 3), buttons[i].c_str());
-        draw_button(buttons[i], 20 + (i * 10), 30, 2);
+        draw_button(buttons[i], sum + 20 + (i * 2), 30, 2);
+        sum += button_length(buttons[i], 2);
+
     }
 
     if (gameOver) {

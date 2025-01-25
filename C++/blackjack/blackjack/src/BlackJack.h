@@ -20,7 +20,7 @@ class BlackJack {
     bool playerWins = false;
 
     int buttonSelect = 0;
-    vector<string> buttons = {"HIT", "STAND"};
+    vector<string> buttons = {"HIT", "STAND", "RAISE"};
 
     public:
     BlackJack();
