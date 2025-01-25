@@ -150,21 +150,45 @@ int BlackJack::hand_value(Hand hand) {
     return sum;
 }
 
+/*
+
+  0 1 2 3 4 5 6 7
+0 [ - - - - - - ]
+1 | * * * * * * |
+2 | * T e s t * |
+3 | * * * * * * |
+4 [ - - - - - - ]
+
+padding = 1 ^^^^^
+(represented by *'s)
+
+*/
 void BlackJack::draw_button(string text, int x, int y, int padding) {
 
     int len = text.length();
+    int half = padding / 2;
+    int twice = (padding * 2) + 1;
 
-    mvaddstr(y, x, text.c_str());
-    mvaddch(y - padding, x - padding, ACS_ULCORNER);
-    mvaddch(y + padding, x - padding, ACS_LLCORNER);
-    mvaddch(y + padding, x + padding + len, ACS_LRCORNER);
-    mvaddch(y - padding, x + padding + len, ACS_URCORNER);
+    int width = twice + len;
+    int height = twice;
 
-    mvhline(y - padding, x - padding + 1, ACS_HLINE, len + padding + 1);
-    mvhline(y + padding, x - padding + 1, ACS_HLINE, len + padding + 1);
+    mvhline(y, x + 1, ACS_HLINE, width - 1);
+    mvhline(y + twice + 1, x + 1, ACS_HLINE, width - 1);
 
-    mvvline(y - padding + 1, x - padding, ACS_VLINE, padding + 1);
-    mvvline(y - padding + 1, x + padding + len, ACS_VLINE, padding + 1);
+    mvvline(y + 1, x, ACS_VLINE, height);
+    mvvline(y + 1, x + width, ACS_VLINE, height);
+
+    mvaddch(y, x, ACS_ULCORNER);
+    mvaddch(y + height + 1, x, ACS_LLCORNER);
+    mvaddch(y, x + width, ACS_URCORNER);
+    mvaddch(y + height + 1, x + width, ACS_LRCORNER);
+
+    mvaddstr(y + padding + 1, x + padding + 1, text.c_str());
+
+}
+
+int BlackJack::button_length(string text, int padding) {
+    return text.length() + (padding * 2);
 }
 
 void BlackJack::hit() {

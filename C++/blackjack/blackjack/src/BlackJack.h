@@ -30,6 +30,7 @@ class BlackJack {
     bool update();
 
     void draw_button(string text, int x, int y, int padding);
+    int button_length(string text, int padding);
     int hand_value(Hand hand);
 
     void draw();
