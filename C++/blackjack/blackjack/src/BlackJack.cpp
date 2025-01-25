@@ -27,6 +27,9 @@ string itos(int x) {
 
 void BlackJack::restart_game() {
     gameOver = false;
+    pot = 0;
+
+    buttons.push_back("RAISE");
     deck.resetDeck();
     DealerHand.clear();
     PlayerHand.clear();
@@ -222,6 +225,7 @@ void BlackJack::stand() {
 
     if (hand_value(DealerHand) > 21) {
         playerWins = true;
+        playerMoney += pot * 2;
     }
     
     if (hand_value(DealerHand) == 21 && hand_value(PlayerHand) == 21) {

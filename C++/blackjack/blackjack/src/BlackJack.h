@@ -22,7 +22,7 @@ class BlackJack {
     int pot = 0;
 
     int buttonSelect = 0;
-    vector<string> buttons = {"HIT", "STAND", "RAISE"};
+    vector<string> buttons = {"HIT", "STAND"};
 
     public:
     BlackJack();
