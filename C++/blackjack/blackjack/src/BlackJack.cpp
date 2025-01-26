@@ -218,6 +218,11 @@ void BlackJack::stand() {
     // dealer >= player, dealer wins
 
     while (true) {
+
+        if (hand_value(DealerHand) == 21) {
+            break;
+        }
+
         if (hand_value(PlayerHand) > hand_value(DealerHand)) {
             DealerHand.add_card(deck.getCard());
             continue;
@@ -231,12 +236,16 @@ void BlackJack::stand() {
         playerMoney += pot * 2;
     }
     
-    if (hand_value(DealerHand) == 21 && hand_value(PlayerHand) == 21) {
+    else if (hand_value(DealerHand) == 21 && hand_value(PlayerHand) == 21) {
         playerWins = false;
     }
 
-    DealerHand.reveal();
+    else if (hand_value(DealerHand) >= hand_value(DealerHand)) {
+        playerWins = false;
+    }
+
     gameOver = true;
+    DealerHand.reveal();
 
 }
 
