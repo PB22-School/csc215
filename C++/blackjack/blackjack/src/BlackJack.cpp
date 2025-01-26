@@ -11,6 +11,8 @@ string itos(int x) {
         return "0";
     }
 
+    x = abs(x);
+
     while (x) {
         s += (x % 10) + '0';
         x /= 10;
@@ -276,16 +278,19 @@ void BlackJack::draw() {
 
     }
 
-    if (playerMoney > 0) {
+    if (playerMoney >= 0) {
         color_set(GREEN, nullptr);
+        mvaddstr(10, 80, "Money: $");
+        mvaddstr(10, 88, itos(playerMoney).c_str());
+        mvaddstr(10, 88 + itos(playerMoney).length(), "!");
     }
     else {
         color_set(RED, nullptr);
+        mvaddstr(10, 80, "Money: -$");
+        mvaddstr(10, 89, itos(playerMoney).c_str());
+        mvaddstr(10, 89 + itos(playerMoney).length(), "!");
     }
 
-    mvaddstr(10, 80, "Money: $");
-    mvaddstr(10, 88, itos(playerMoney).c_str());
-    mvaddstr(10, 88 + itos(playerMoney).length(), "!");
     
     color_set(WHITE, nullptr);
     mvaddstr(12, 80, "Pot: $");
