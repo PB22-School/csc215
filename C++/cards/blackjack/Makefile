@@ -13,13 +13,3 @@ build/%.o: src/%.cpp
 	$(CC) -c -o $@ $< -std=$(STD)
 
 -include build/*.d
-
-.PHONY: test all clean
-
-test: build/test
-	./build/test
-
-all: build/test build/main
-
-clean:
-	rm -rf build

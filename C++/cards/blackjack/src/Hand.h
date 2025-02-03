@@ -8,7 +8,7 @@ class Hand {
     public:
     vector<Card> cards;
     ulong visibility;
-    Hand(ulong visiblity=ULONG_MAX);
+    Hand(ulong visiblity=ulong(-1));
     void add_card(Card card);
     Card drop_card(int cardIndex);
 

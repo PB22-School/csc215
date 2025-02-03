@@ -49,7 +49,7 @@ int Hand::getValue() {
 }
 
 void Hand::reveal() {
-    visibility = ULONG_MAX;
+    visibility = ulong(-1);
 }
 
 void Hand::draw(int x, int y) {
